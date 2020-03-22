@@ -89,8 +89,8 @@ public class DiffServiceImpl implements DiffService {
                 response.setResult(EDiffResult.DIFFERENT);
 
                 List<String> differences = new ArrayList<>();
-                differences.add( StringUtils.difference(diffEntity.getLeft(), diffEntity.getRight()));
-                differences.add( StringUtils.difference(diffEntity.getRight(), diffEntity.getLeft()));
+                differences.add(StringUtils.difference(diffEntity.getLeft(), diffEntity.getRight()));
+                differences.add(StringUtils.difference(diffEntity.getRight(), diffEntity.getLeft()));
 
                 response.setDifferences(differences);
             }

@@ -28,8 +28,12 @@ public interface DiffService {
     DiffDto diffRight(Integer id, String content);
 
     /**
-     * @param id
-     * @return
+     * Get the differences in a diff,
+     * get result for Equals values, different sizes or same size different content.
+     * If are equals size but different content will return the
+     *
+     * @param id identifier of a diff
+     * @return a difference response with result, message and differences if this one exists
      */
     DiffResponse diff(Integer id);
 
