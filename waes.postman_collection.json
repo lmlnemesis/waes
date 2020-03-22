@@ -1,0 +1,88 @@
+{
+	"info": {
+		"_postman_id": "d605bb7d-07ce-4b82-878e-3b20f0268e6f",
+		"name": "waes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "LEFT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "d2FlcyBsZWZ0"
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/diff/1234/left",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"diff",
+						"1234",
+						"left"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RIGHT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "d2FlcyByaWdodA=="
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/diff/1234/right",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"diff",
+						"1234",
+						"right"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Diff",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "d2FlcyByaWdodA=="
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/diff/1234/right",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"diff",
+						"1234",
+						"right"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
