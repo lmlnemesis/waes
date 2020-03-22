@@ -44,6 +44,6 @@ public class DiffController {
     @GetMapping("/diff/{id}")
     public ResponseEntity<DiffResponse> diff(@PathVariable(value = "id") Integer id) {
 
-        return new ResponseEntity<>(new DiffResponse(), HttpStatus.OK);
+        return new ResponseEntity<>(diffService.diff(id), HttpStatus.OK);
     }
 }

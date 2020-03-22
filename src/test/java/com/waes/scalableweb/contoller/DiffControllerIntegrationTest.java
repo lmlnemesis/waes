@@ -16,6 +16,7 @@ import java.util.Base64;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
@@ -43,20 +44,29 @@ public class DiffControllerIntegrationTest {
                 .content(Base64.getEncoder().encode(value.getLeft().getBytes()))
         ).andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(value.getId())))
-                .andExpect(jsonPath("$.left", is(value.getLeft())))
-                .andExpect(jsonPath("$.right", is(value.getRight())));
+                .andExpect(jsonPath("$.left", is(value.getLeft())));
     }
 
     @Test
     public void saveDiffRightIT() throws Exception {
-        DiffDto value = new DiffDto(2, null, "WAES Right");
+        DiffDto value = new DiffDto(1, null, "WAES Right");
 
         mockMvc.perform(post("/v1/diff/" + value.getId() + "/right")
                 .content(Base64.getEncoder().encode(value.getRight().getBytes()))
         ).andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(value.getId())))
-                .andExpect(jsonPath("$.right", is(value.getRight())))
-                .andExpect(jsonPath("$.left", is(value.getLeft())));
+                .andExpect(jsonPath("$.right", is(value.getRight())));
+    }
+
+    @Test
+    public void saveDiffIT() throws Exception {
+
+        this.saveDiffLeftIT();
+        this.saveDiffRightIT();
+
+        mockMvc.perform(get("/v1/diff/1")
+        ).andExpect(status().isOk())
+                .andExpect(jsonPath("$.result", is("DIFFERENT")));
     }
 
 }

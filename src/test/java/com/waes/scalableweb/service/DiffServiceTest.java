@@ -1,6 +1,8 @@
 package com.waes.scalableweb.service;
 
 import com.waes.scalableweb.controller.response.DiffDto;
+import com.waes.scalableweb.controller.response.DiffResponse;
+import com.waes.scalableweb.controller.response.EDiffResult;
 import com.waes.scalableweb.excepcion.NotNullException;
 import com.waes.scalableweb.model.DiffEntity;
 import com.waes.scalableweb.repository.DiffRepository;
@@ -111,5 +113,60 @@ public class DiffServiceTest {
         assertEquals(newValue.getLeft(), result.getLeft());
         assertEquals(newValue.getRight(), result.getRight());
     }
+
+    @Test
+    public void diffEqualsTestSuccess() {
+        DiffEntity newValue = new DiffEntity(1, "newTest", "newTest");
+
+        when(diffRepository.findById(anyInt())).thenReturn(Optional.of(newValue));
+
+        DiffResponse result = diffService.diff(1);
+
+        assertEquals(result.getResult(), EDiffResult.EQUALS);
+    }
+
+    @Test
+    public void diffDifferentSizeTestSuccess() {
+        DiffEntity newValue = new DiffEntity(1, "newTest", "newTestTTTT");
+
+        when(diffRepository.findById(anyInt())).thenReturn(Optional.of(newValue));
+
+        DiffResponse result = diffService.diff(1);
+
+        assertEquals(result.getResult(), EDiffResult.DIFFERENT_SIZE);
+    }
+
+    @Test
+    public void diffDifferentTestSuccess() {
+        DiffEntity newValue = new DiffEntity(1, "newTest1", "newTest2");
+
+        when(diffRepository.findById(anyInt())).thenReturn(Optional.of(newValue));
+
+        DiffResponse result = diffService.diff(1);
+
+        assertEquals(result.getResult(), EDiffResult.DIFFERENT);
+        assertEquals(result.getDifferences().size(), 2);
+    }
+
+    @Test(expected = NotNullException.class)
+    public void diffLeftNullTestFailure() {
+        DiffEntity newValue = new DiffEntity(1, null, "newTest2");
+
+        when(diffRepository.findById(anyInt())).thenReturn(Optional.of(newValue));
+
+        DiffResponse result = diffService.diff(1);
+    }
+
+    @Test(expected = NotNullException.class)
+    public void diffRightNullTestFailure() {
+        DiffEntity newValue = new DiffEntity(1, "newTest2", null);
+
+        when(diffRepository.findById(anyInt())).thenReturn(Optional.of(newValue));
+
+        DiffResponse result = diffService.diff(1);
+    }
+
+
+
 
 }
