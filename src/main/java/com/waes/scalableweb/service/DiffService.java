@@ -6,14 +6,24 @@ import com.waes.scalableweb.controller.response.DiffResponse;
 public interface DiffService {
 
     /**
-     * @param id
-     * @return
+     * This service will create a new diff with content value
+     * in left side. If the diff exist will override the value
+     * in the left side.
+     *
+     * @param id      identifier of diff
+     * @param content new content of diff
+     * @return the saved Diff
      */
     DiffDto diffLeft(Integer id, String content);
 
     /**
-     * @param id
-     * @return
+     * This service will create a new diff with content value
+     * in right side. If the diff exist will override the value
+     * in the right side.
+     *
+     * @param id      identifier of diff
+     * @param content new content of diff
+     * @return the saved Diff
      */
     DiffDto diffRight(Integer id, String content);
 
