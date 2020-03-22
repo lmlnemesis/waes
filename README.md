@@ -15,4 +15,5 @@ For the endpoints left and right, I assume if the id already exist we will overr
 Will be nice add swagger for expose the endpoint documentation. 
 Add mapstruct for convert entities in dtos.
 Add more integration tests.
+Update endpoint to make it plural as is recommended by convention.
 
