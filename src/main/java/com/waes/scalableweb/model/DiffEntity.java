@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -15,10 +16,13 @@ import javax.persistence.Id;
 public class DiffEntity {
 
     @Id
+    @Column
     private Integer id;
 
+    @Column
     private String left;
 
+    @Column
     private String right;
 
     @Override

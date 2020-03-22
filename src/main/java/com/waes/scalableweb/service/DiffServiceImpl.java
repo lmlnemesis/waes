@@ -1,9 +1,18 @@
 package com.waes.scalableweb.service;
 
+import com.waes.scalableweb.controller.response.DiffDto;
 import com.waes.scalableweb.controller.response.DiffResponse;
+import com.waes.scalableweb.excepcion.NotNullException;
+import com.waes.scalableweb.mapper.DiffMapper;
+import com.waes.scalableweb.model.DiffEntity;
 import com.waes.scalableweb.repository.DiffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class DiffServiceImpl implements DiffService {
@@ -16,20 +25,61 @@ public class DiffServiceImpl implements DiffService {
     }
 
     @Override
-    public Boolean diffLeft(Integer id) {
+    @Transactional
+    public DiffDto diffLeft(Integer id, String content) {
+        this.validateDiffRequest(id, content);
 
-        return null;
+        Optional<DiffEntity> optionalDiffEntity = diffRepository.findById(id);
+
+        if (optionalDiffEntity.isPresent()) {
+            DiffEntity diffEntity = optionalDiffEntity.get();
+            diffEntity.setLeft(content);
+            return DiffMapper.fromEntity(diffRepository.save(diffEntity));
+        } else {
+            DiffEntity newDiff = new DiffEntity();
+            newDiff.setId(id);
+            newDiff.setLeft(content);
+            return DiffMapper.fromEntity(diffRepository.save(newDiff));
+        }
     }
 
     @Override
-    public Boolean diffRight(Integer id) {
+    @Transactional
+    public DiffDto diffRight(Integer id, String content) {
+        this.validateDiffRequest(id, content);
 
-        return null;
+        Optional<DiffEntity> optionalDiffEntity = diffRepository.findById(id);
+        if (optionalDiffEntity.isPresent()) {
+            DiffEntity diffEntity = optionalDiffEntity.get();
+            diffEntity.setRight(content);
+            return DiffMapper.fromEntity(diffRepository.save(diffEntity));
+        } else {
+            DiffEntity newDiff = new DiffEntity();
+            newDiff.setId(id);
+            newDiff.setRight(content);
+            return DiffMapper.fromEntity(diffRepository.save(newDiff));
+        }
     }
 
     @Override
     public DiffResponse diff(Integer id) {
+        this.validateId(id);
 
-        return null;
+        throw new NotImplementedException();
     }
+
+    private void validateId(Integer id) {
+        if (Objects.isNull(id)) {
+            throw new NotNullException("Diff id should be not null");
+        }
+    }
+
+    private void validateDiffRequest(Integer id, String content) {
+        this.validateId(id);
+
+        if (Objects.isNull(content)) {
+            throw new NotNullException("Content should be not null");
+        }
+    }
+
 }

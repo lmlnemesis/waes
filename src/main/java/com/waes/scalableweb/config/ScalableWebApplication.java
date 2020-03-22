@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EnableJpaRepositories("com.waes.scalableweb.repository")
 @EntityScan("com.waes.scalableweb.model")
-@ComponentScan("com.waes.scalableweb.service")
+@ComponentScan(basePackages = {"com.waes.scalableweb.service", "com.waes.scalableweb.controller"})
 @SpringBootApplication
 public class ScalableWebApplication {
 

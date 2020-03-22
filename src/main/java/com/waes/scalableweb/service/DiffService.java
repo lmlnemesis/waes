@@ -1,5 +1,6 @@
 package com.waes.scalableweb.service;
 
+import com.waes.scalableweb.controller.response.DiffDto;
 import com.waes.scalableweb.controller.response.DiffResponse;
 
 public interface DiffService {
@@ -8,13 +9,13 @@ public interface DiffService {
      * @param id
      * @return
      */
-    Boolean diffLeft(Integer id);
+    DiffDto diffLeft(Integer id, String content);
 
     /**
      * @param id
      * @return
      */
-    Boolean diffRight(Integer id);
+    DiffDto diffRight(Integer id, String content);
 
     /**
      * @param id
